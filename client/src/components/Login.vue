@@ -1,7 +1,7 @@
 <template>
-  <v-layout class='register-box'>
-    <v-toolbar class="register-toolbar" dark color="#005792">
-      <v-toolbar-title>Register Here!</v-toolbar-title>
+  <v-layout class='login-box'>
+    <v-toolbar class="login-toolbar" dark color="#005792">
+      <v-toolbar-title>Login Here!</v-toolbar-title>
     </v-toolbar>
     <div class='inputs'>
       <v-text-field
@@ -18,33 +18,31 @@
       <br />
       <div class='error-msg' v-html='error'></div>
     </div>
-    <v-btn class='register-button' @click='register'>Register</v-btn>
+    <v-btn class='login-button' @click='login'>Login</v-btn>
   </v-layout>
 </template>
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
 export default {
-  name: 'Register',
+  name: 'Login',
   data () {
     return {
-      msg: 'Make your registration',
       email: '',
       password: '',
       error: null
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthenticationService.register({
+        await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
-        this.$alert(`Account for e-mail ${this.email} registed with success!`, 'Success', 'success')
+        this.$alert(`Account for e-mail ${this.email} authenticated with success!`, 'Success', 'success')
       } catch (error) {
         this.$alert(`${error.response.data.error}`, 'Error', 'error')
-        // this.error = ;
       }
     }
   }
@@ -56,7 +54,7 @@ export default {
 .error-msg {
   color: red;
 }
-.register-box {
+.login-box {
   margin-top: 10vw;
   margin-left: auto;
   margin-right: auto;
@@ -66,7 +64,7 @@ export default {
   flex-direction: column;
 }
 
-.register-toolbar{
+.login-toolbar{
   height: 2vh;
 }
 
@@ -86,7 +84,7 @@ export default {
   left: 0;
 }
 
-.register-button{
+.login-button{
   width: 30vw;
   margin-left: auto;
   margin-right: auto;

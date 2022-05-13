@@ -10,5 +10,16 @@ module.exports = {
                 error: 'Error! This email accout is already in use'
             })
         }
+    },
+    async authenticate (req, res) {
+        try {
+            console.log(req.body)
+            const user = await User.findOne({where: req.body})
+            res.send(user.toJSON())
+        } catch (err) {
+            res.status(400).send({
+                error: 'Error! User not found'
+            })
+        }
     }
 }

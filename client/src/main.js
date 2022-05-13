@@ -5,16 +5,16 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import VueSimpleAlert from "vue-simple-alert";
+import VueSimpleAlert from 'vue-simple-alert'
 
 Vue.config.productionTip = false
 
+Vue.use(VueSimpleAlert)
 Vue.use(Vuetify)
-
-Vue.use(VueSimpleAlert);
 
 /* eslint-disable no-new */
 new Vue({
+  vuetify: new Vuetify(),
   el: '#app',
   router,
   components: { App },
