@@ -1,25 +1,14 @@
 <template>
-  <v-layout class='login-box'>
-    <v-toolbar class="login-toolbar" dark color="#005792">
-      <v-toolbar-title>Login Here!</v-toolbar-title>
-    </v-toolbar>
-    <form class='inputs' autocomplete="on">
-      <v-text-field
-        class="email-input"
-        label='Email'
-        type='email'
-        v-model='email'
-      />
-      <v-text-field
-        class="pwd-input"
-        label='Password'
-        type='password'
-        v-model='password'
-      />
-      <br />
-      <div class='error-msg' v-html='error'></div>
-    </form>
-    <v-btn class='login-button' @click='login'>Login</v-btn>
+  <v-layout class='storage-box'>
+    <h2>Your Records</h2>
+      <v-data-table
+      dense
+      :headers="headers"
+      :items="desserts"
+      item-key="name"
+      class="elevation-1"
+      ></v-data-table>
+      <v-btn class="record-button"> New Record </v-btn>
   </v-layout>
 </template>
 
@@ -29,7 +18,16 @@ export default {
   name: 'Login',
   data () {
     return {
-      email: '',
+      headers: [
+        {
+          text: 'Date',
+          align: 'start',
+          sortable: true,
+          value: 'name'
+        },
+        { text: 'Type', value: 'type' }
+      ],
+      data: [],
       password: '',
       error: null
     }
@@ -58,8 +56,8 @@ export default {
 .error-msg {
   color: red;
 }
-.login-box {
-  margin-top: 10vw;
+.storage-box {
+  margin-top: 4vw;
   margin-left: auto;
   margin-right: auto;
   width: 50vw;
@@ -68,28 +66,9 @@ export default {
   flex-direction: column;
 }
 
-.login-toolbar{
-  height: 2vh;
-}
-
-.inputs {
+.record-button {
   width: 30vw;
-  margin: auto;
-}
-.pwd-input{
-  margin-bottom: 20px;
-}
-.email-input {
   margin-top: 20px;
-  margin-bottom: 20px;
-}
-.email-input > label {
-  right: unset;
-  left: 0;
-}
-
-.login-button{
-  width: 30vw;
   margin-left: auto;
   margin-right: auto;
 }

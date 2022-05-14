@@ -10,5 +10,8 @@ module.exports ={
             storage: './dinostab.sqlite'
         },
         url:'postgres://root:root@localhost:5432/dinostab'
+    },
+    authentication: {
+        jwtSecret: process.env.JWT_SECRET || 'secret'
     }
 }

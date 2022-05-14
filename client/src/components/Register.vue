@@ -3,10 +3,11 @@
     <v-toolbar class="register-toolbar" dark color="#005792">
       <v-toolbar-title>Register Here!</v-toolbar-title>
     </v-toolbar>
-    <div class='inputs'>
+    <form class='inputs'>
       <v-text-field
         class="email-input"
-        label='E-mail'
+        label='Email'
+        type='email'
         v-model='email'
       />
       <v-text-field
@@ -17,7 +18,7 @@
       />
       <br />
       <div class='error-msg' v-html='error'></div>
-    </div>
+    </form>
     <v-btn class='register-button' @click='register'>Register</v-btn>
   </v-layout>
 </template>
@@ -37,14 +38,16 @@ export default {
   methods: {
     async register () {
       try {
-        await AuthenticationService.register({
+        const response = await AuthenticationService.register({
           email: this.email,
           password: this.password
         })
         this.$alert(`Account for e-mail ${this.email} registed with success!`, 'Success', 'success')
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({name: 'home'})
       } catch (error) {
         this.$alert(`${error.response.data.error}`, 'Error', 'error')
-        // this.error = ;
       }
     }
   }

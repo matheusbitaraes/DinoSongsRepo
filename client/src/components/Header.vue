@@ -5,19 +5,28 @@
         <img
           class="logo"
           src="../assets/logo.png"
-          @click="navigateTo('home')"
+          @click="navigateTo({name: 'home'})"
         />
       </div>
     </v-toolbar-title>
-    <v-toolbar-title class="header-title" @click="navigateTo('home')">
+    <v-toolbar-title class="header-title" @click="navigateTo({name: 'home'})">
       Any Repo - Just store things!
     </v-toolbar-title>
-    <v-toolbar-items>
+    <v-toolbar-items v-if="!$store.state.isUserLoggedIn">
       <v-btn class="header-btn" small elevation="0" color="#005792" @click="navigateTo('register')"
         >Sign Up</v-btn
       >
       <v-btn class="header-btn" small elevation=0 color="#005792" @click="navigateTo('login')"
-        >Sign In</v-btn
+        >Log In</v-btn
+      >
+    </v-toolbar-items>
+    <v-toolbar-items v-if="$store.state.isUserLoggedIn">
+      <v-btn class="header-btn" small elevation=0 color="#005792" @click="navigateTo('storage')"
+        >My Storage</v-btn
+      >
+      <h4 class="email" small elevation=0 color="#005792">{{this.$store.state.user && this.$store.state.user.email}}</h4>
+      <v-btn class="header-btn" small elevation=0 color="#005792" @click="logout"
+        >Sign Out</v-btn
       >
     </v-toolbar-items>
 
@@ -34,6 +43,11 @@ export default {
   methods: {
     navigateTo (route) {
       this.$router.push(route)
+    },
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({name: 'home'})
     }
   }
 }
@@ -48,6 +62,11 @@ export default {
   width: 100vw;
 }
 
+.email {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+}
 .header-btn {
   margin-right:1vw;
 }
