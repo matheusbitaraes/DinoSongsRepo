@@ -10,7 +10,7 @@
       </div>
     </v-toolbar-title>
     <v-toolbar-title class="header-title" @click="navigateTo({name: 'home'})">
-      Any Repo - Just store things!
+      Any Repo - Just store Notes!
     </v-toolbar-title>
     <v-toolbar-items v-if="!$store.state.isUserLoggedIn">
       <v-btn class="header-btn" small elevation="0" color="#005792" @click="navigateTo('register')"
@@ -78,6 +78,7 @@ export default {
 
 .header-title {
   font-weight: bold;
-  margin: auto;
+  margin-right: auto;
+  margin-left: 60px;
 }
 </style>

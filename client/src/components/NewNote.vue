@@ -1,14 +1,18 @@
 <template>
   <v-layout v-if="$store.state.isUserLoggedIn" class='storage-box'>
-    <h2>Your Records</h2>
-      <v-data-table
-      dense
-      :headers="headers"
-      :items="notes"
-      item-key="name"
-      class="elevation-1"
-      ></v-data-table>
-      <v-btn class="record-button" @click="navigateTo({name: 'new'})"> New Record </v-btn>
+    <h2>New Note</h2>
+    <form>
+    <v-text-field
+      label="Title"
+      required
+      hide-details="auto"
+      v-model='title'
+    ></v-text-field>
+    <v-text-field label="Url" v-model='url'></v-text-field>
+    <v-textarea v-model='content' class="content-input" placeholder="Be Creative" filled outlined auto-grow></v-textarea>
+    </form>
+    <v-btn class="record-button" @click="save"> Save </v-btn>
+
   </v-layout>
   <v-layout v-else class='storage-box'>
     <h2>Please Register or Login</h2>
@@ -23,24 +27,27 @@ export default {
   methods: {
     navigateTo (route) {
       this.$router.push(route)
+    },
+    async save () {
+      try {
+        await StorageService.post({
+          title: this.title,
+          url: this.url,
+          content: this.content,
+          id: this.$store.state.user.id
+        })
+        this.$alert(`Note saved!`, 'Success', 'success')
+        this.$router.push({name: 'storage'})
+      } catch (error) {
+        this.$alert(`${error.response.data.error}`, 'Error', 'error')
+      }
     }
   },
   data () {
     return {
-      headers: [
-        {
-          text: 'Title',
-          align: 'title',
-          sortable: true,
-          value: 'title'
-        },
-        { text: 'Created At', value: 'createdAt' },
-        { text: 'Updated At', value: 'updatedAt' },
-        { text: 'Url', value: 'url' }
-      ],
-      notes: [
-      ],
-      error: null
+      title: null,
+      url: null,
+      content: null
     }
   },
   async mounted () {

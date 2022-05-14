@@ -35,7 +35,6 @@ module.exports = {
                 })
             }
             const isPasswordValid = await user.comparePassword(password)
-            console.log(`\n\n\npwd valid: ${isPasswordValid}\n\n\n`)
             if (!isPasswordValid) {
                 return res.status(403).send({
                     error: 'Login information incorrect'

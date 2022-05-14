@@ -28,4 +28,6 @@ fs.readdirSync(__dirname)
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
+db["User"].hasMany(db["Notes"])
+
 module.exports = db
