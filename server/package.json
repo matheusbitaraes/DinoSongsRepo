@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
     "lint": "./node_modules/.bin/eslint"
   },
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "eslint": "^8.15.0",
-    "eslint-plugin-vue": "^8.7.1"
+    "eslint-plugin-vue": "^8.7.1",
+    "jest": "^28.1.0"
   }
 }
